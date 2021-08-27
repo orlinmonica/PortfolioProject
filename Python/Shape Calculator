@@ -1,0 +1,50 @@
+class Rectangle :
+  def __init__(self,width,height):
+    self.width = width
+    self.height = height
+  # to return a string
+  def __str__(self) :
+    return f"Rectangle(width={self.width}, height={self.height})" 
+  def set_width(self,width):
+    self.width = width
+  def set_height(self, height) :
+    self.height = height
+  def get_area(self) :
+    area = self.width * self.height
+    return area
+  def get_perimeter(self) :
+    perimeter = (2*self.width) + (2*self.height)
+    return perimeter
+  def get_diagonal(self) :
+     diag = ((self.width**2 + self.height**2)**.5)
+     return diag
+  def get_picture(self) :
+    pic = ''
+    w = self.width
+    h = self.height
+    if w > 50 or h > 50 :
+      pic = pic + 'Too big for picture.'
+    else :
+      for i in range(0,h) :
+        for i in range(0,w) :
+          pic = pic + '*'
+        pic = pic + '\n'
+    return pic
+  def get_amount_inside(self, sq) :
+    w = self.width//sq.width
+    h = self.height//sq.height
+    n = w*h
+    return n 
+
+class Square(Rectangle) :
+  def __init__(self,side):
+    super().__init__(side, side)
+  def __str__(self) :
+    return f"Square(side={self.width})"
+  def set_side(self,side):
+    self.width = side
+    self.height = side
+  def set_width(self,width):
+    self.set_side(width) 
+  def set_height(self,height) :
+    self.set_side(height)
