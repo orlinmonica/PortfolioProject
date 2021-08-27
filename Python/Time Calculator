@@ -1,0 +1,72 @@
+def add_time(start, duration, day = None):
+  week = ['monday','tuesday','wednesday','thrusday','friday','saturday','sunday']
+  
+
+  s = start.find(' ')
+
+  time = start[0:s]
+  zone = start[s+1:]
+  td = time.find(':')
+  tdd = duration.find(':')
+
+  hour = time[0:td]
+  min = time[td+1:]
+  hourd = duration[0:tdd]
+  mind = duration[tdd+1:]
+
+  hour = int(hour) + int(hourd)
+  min = int(min) + int(mind)
+
+  new_time = ''
+
+  if int(min) >= 60 :
+    min = int(min) - 60
+    hour += 1
+  if int(hour) >= 12 :
+    r12 = int(hour/12)
+    r24 = int(hour/24)
+    if zone == 'AM' :
+      if r12%2 == 1 :
+        zone = 'PM'
+    elif zone == 'PM' :
+      if r12%2 == 1 :
+        zone = 'AM'
+        r24 += 1
+    if int(hour) % 12 == 0 :
+      hres = int(hour) - (12*r12) + 12
+    if int(hour)% 12 != 0  :
+      hres = int(hour) - (12*r12)
+    if len(str(min)) == 1:
+      new_time = new_time + str(hres) + ':0' + str(min) +' '+ zone 
+    if len(str(min)) > 1:
+      new_time = new_time + str(hres) +  ':' + str(min) +' '+ zone
+  
+  if int(hour) < 12 :
+    r24 = r12 = 0
+    if len(str(min)) == 1:
+      new_time = new_time + str(hour) + ':0' + str(min) +' '+ zone 
+    if len(str(min)) > 1:
+      new_time = new_time + str(hour) +  ':' + str(min) +' '+ zone
+    
+  if day != None :
+    if int(hour) >= 12 :
+      day = day.lower()
+      idx = week.index(day)
+      if idx+r24 > 7 :
+        week7 = int((idx+r24)/7)
+        idx = idx - (7*(week7))
+      day = week[idx+r24]
+      day = day[0].upper() +day[1:]
+      new_time = new_time + ', ' + day
+    else :
+      day = day.lower()
+      idx = week.index(day)
+      day = week[idx+r24]
+      day = day[0].upper() +day[1:]
+      new_time = new_time + ', ' + day
+  if r24 > 1 :
+        new_time = new_time  + ' (' + str(r24) + ' days later)'
+  if (r12 == 1 and zone == 'AM') or r24 == 1 :
+    new_time = new_time + ' (next day)'
+
+  return new_time
