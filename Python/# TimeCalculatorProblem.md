@@ -1,4 +1,4 @@
-#Time Calculator Problem
+# Time Calculator Problem
 (https://replit.com/@OrlinMonica/boilerplate-time-calculator-12#time_calculator.py)
 ### Assignment
 
@@ -43,7 +43,3 @@ Write your code in `time_calculator.py`. For development, you can use `main.py` 
 ### Testing 
 
 The unit tests for this project are in `test_module.py`. We imported the tests from `test_module.py` to `main.py` for your convenience. The tests will run automatically whenever you hit the "run" button.
-
-### Submitting
-
-Copy your project's URL and submit it to freeCodeCamp.
