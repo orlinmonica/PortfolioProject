@@ -1,0 +1,99 @@
+def arithmetic_arranger(problems, answer=False):
+  a_split = []
+  result = ""
+  
+  if (rules(problems)==True):
+    for i in problems :
+      a_split.append(i.split(' '))
+    for q in a_split :
+      if q == a_split[-1] :
+        if len(q[0])>= len(q[2]): 
+          result = result + ('  ' + q[0] )
+        elif len(q[0])< len(q[2]) :
+          result = result + (' '*(len(q[2])-len(q[0])) + '  '+ q[0])
+      else :
+        if len(q[0])>= len(q[2]): 
+          result = result + ('  ' + q[0]+'    ')
+        elif len(q[0])< len(q[2]) :
+          result = result + (' '*(len(q[2])-len(q[0])) + '  '+ q[0]+ '    ')
+    
+    result = result + "\n"
+    
+    for q in a_split :
+      if q == a_split[-1] :
+        if len(q[0])>= len(q[2]): 
+          result = result + (q[1]+'')
+          result = result + (' '*(len(q[0])-len(q[2])) + ' ' + q[2])
+        elif len(q[0])< len(q[2]) :
+          result = result + (q[1]+'')
+          result = result + (' ' + q[2])
+      else :
+        if len(q[0])>= len(q[2]): 
+          result = result + (q[1]+'')
+          result = result + (' '*(len(q[0])-len(q[2])) + ' ' + q[2]+'    ')
+        elif len(q[0])< len(q[2]) :
+          result = result + (q[1]+'')
+          result = result + (' ' + q[2]+'    ')
+    result = result + "\n"
+    dash1 = []
+    for q in a_split :
+      if q == a_split[-1] :
+        if len(q[0])>= len(q[2]): 
+          dash1.append('-'*len(q[0])+'--') 
+          result = result + ('-'*len(q[0])+'--')
+        elif len(q[0])< len(q[2]): 
+          dash1.append('-'*len(q[2])+'--')
+          result = result + ('-'*len(q[2])+'--')
+      else :
+        if len(q[0])>= len(q[2]): 
+          dash1.append('-'*len(q[0])+'--') 
+          result = result + ('-'*len(q[0])+'--'+'    ')
+        elif len(q[0])< len(q[2]): 
+          dash1.append('-'*len(q[2])+'--')
+          result = result + ('-'*len(q[2])+'--'+'    ')
+    
+    if answer == True :
+      result = result + "\n"
+      for k,q in enumerate(a_split) :
+        if q == a_split[-1] :
+          if q[1] == '+' :
+            jumlah = int(q[0])+int(q[2]) 
+            result = result + (' '*(len(dash1[k])-len(str(jumlah))) +str(jumlah))
+          elif q[1] == '-' :
+            jumlah = int(q[0])-int(q[2])
+            result = result + (' '*(len(dash1[k])-len(str(jumlah))) +str(jumlah))
+        else :
+          if q[1] == '+' :
+            jumlah = int(q[0])+int(q[2]) 
+            result = result + (' '*(len(dash1[k])-len(str(jumlah))) +str(jumlah)+'    ')
+          elif q[1] == '-' :
+            jumlah = int(q[0])-int(q[2])
+            result = result + (' '*(len(dash1[k])-len(str(jumlah))) +str(jumlah)+'    ')
+    arranged_problems = result
+  else :
+    result = rules(problems)
+    arranged_problems = result
+  return arranged_problems 
+
+
+
+def rules(problems) :
+  a_split=[]
+  for i in problems :
+    a_split.append(i.split(' '))
+
+  if len(a_split) >5:
+    return 'Error: Too many problems.'
+  
+  for q in a_split :
+    if not (q[1] == '+' or q[1] == '-') :
+      return "Error: Operator must be '+' or '-'."
+  
+  for q in a_split :
+    if q[0].isnumeric() == False or q[2].isnumeric() == False :
+      return "Error: Numbers must only contain digits."
+  
+  for q in a_split :
+    if len(q[0]) > 4 or len(q[2]) > 4 :
+      return "Error: Numbers cannot be more than four digits."
+  return True 
